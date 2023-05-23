@@ -1,0 +1,310 @@
+#define _CRT_SECURE_NO_WARNINGS
+#include <string.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <locale.h>
+#include "STRUCTS.h"//Libreria que guarda las funciones y estructuras
+
+int main()
+{
+	setlocale(LC_CTYPE, "spanish");
+	leer();
+	int D; //Variable que decide las decisiones del usuario
+	int i, j;//Variables contadoras en los ciclos
+	int Z; //Determina si una funcion realizo bien el trabajo
+	int l; // Determina el largo de las cadenas
+	do
+	{
+		
+		system("cls");
+		printf("\n1.-Agregar articulo");
+		printf("\n2.-Eliminar articulo");
+		printf("\n3.-Modificar producto");
+		printf("\n4.-Lista de articulos Vigentes");
+		printf("\n5.-Salir");
+		printf("\nSeleccione: ");
+		scanf("%d", &D);
+		switch (D)
+		{			
+				//Alta de producto
+			case 1:
+				do
+				{
+					Z = 0;
+					system("cls");
+					Z = captura();
+				} while (Z == 1);
+				break;
+				//Baja de producto
+			case 2:
+				do
+				{
+					D = 0;
+					int b; //Indica el producto a eliminar
+					system("cls");
+					printf("\n--Baja de producto--");
+					printf("\nEscriba la clave del articulo a dar de baja: ");
+					scanf("%d", &b);
+					for (i = 0; i <= 49; i++)
+					{
+						if (b == r[i].Clave)
+						{
+							printf("\n\nClave: %d", r[i].Clave);
+							printf("\nNombre: %s", r[i].Nombre);
+							printf("\nDescripcion: %s", r[i].Descripcion);
+							printf("\nGenero: %s", r[i].Genero);
+							printf("\nConsola: %s", r[i].Consola);
+							printf("\nCantidad: %d", r[i].Cantidad);
+							printf("\nPrecio: %.2f", r[i].Precio);
+							printf("\n¿Desea eliminar este articulo?\n1.-si\nPresione otro boton para continuar...\nSeleccione: ");
+							scanf("%d", &D);
+							if (D == 1)
+							{
+								r[i].Clave = 0;
+								strcpy(r[i].Nombre, " ");
+								strcpy(r[i].Descripcion, " ");
+								strcpy(r[i].Genero, " ");
+								strcpy(r[i].Consola, " ");
+								r[i].ALanzamiento = 0;
+								r[i].Cantidad = 0;
+								r[i].Precio = 0;
+								printf("\n\nArticulo borrado exitosamente...");
+								printf("\n¿Desea eliminar otro articulo?\n1.-si\nPresione otro boton para continuar...\nSeleccione: ");
+								scanf("%d", &D);
+							}
+							break;
+						}
+					}
+				} while (D == 1);
+				break;
+				//Modificar producto
+			case 3:
+				int clave;
+				system("cls");
+				printf("\nRecuerde escribir una clave existente, de lo contrario el programa no desplegara nada... ");
+				printf("\nEscriba la clave del producto a modificar: ");
+				scanf("%d", &clave);
+				for ( i = 0; i <= 49; i++)
+				{
+					if (clave == r[i].Clave)
+					{
+						printf("\n--Articulo--");
+						printf("\n\nClave: %d", r[i].Clave);
+						printf("\nNombre: %s", r[i].Nombre);
+						printf("\nDescripcion: %s", r[i].Descripcion);
+						printf("\nGenero: %s", r[i].Genero);
+						printf("\nConsola: %s", r[i].Consola);
+						printf("\nAño de lanzamiento: %d", r[i].ALanzamiento);
+						printf("\nCantidad: %d", r[i].Cantidad);
+						printf("\nPrecio: %.2f", r[i].Precio);
+						printf("\nPrecio con IVA: %.2f", r[i].PrecioIVA);
+						printf("\n¿Qué desea modificar?");
+						printf("\n1.-Descripcion");
+						printf("\n2.-Genero");
+						printf("\n3.-Consola");
+						printf("\n4.-Año de lanzamiento");
+						printf("\n5.-Cantidad");
+						printf("\n6.-Precio");
+						printf("\n7.-Salir");
+						printf("\nSeleccione: ");
+						scanf("%d", &D);
+						switch (D)
+						{
+						
+						case 1:
+							system("cls");
+							while (getchar() != '\n');
+							fflush(stdin);
+							printf("\nNueva Descripcion: ");
+							gets_s(r[i].Descripcion);
+							printf("\nDescripcion: %s", r[i].Descripcion);
+							r[i].NCD = strlen(r[i].Descripcion);
+							break;
+							//Genero
+						case 2:
+							system("cls");
+							printf("\nEscriba porfavor los siguientes datos en mayusculas");
+							//Verifica	que este en mayusculas
+							do
+							{
+								D = 0;
+								while (getchar() != '\n');
+								fflush(stdin);
+								printf("\nGenero: ");
+								gets_s(r[i].Genero);
+								r[i].NCG = strlen(r[i].Genero);
+								l = r[i].NCG;
+								for (l; l >= 0; l--)
+								{
+									if (islower(r[i].Genero[l]) != 0)
+									{
+										printf("\nEscriba todo en mayusculas...");
+										D = 1;
+										break;
+									}
+								}
+							} while (D == 1);
+							break;
+							//Consola
+						case 3:
+							system("cls");
+							printf("\nEscriba porfavor los siguientes datos en mayusculas");
+							do
+							{
+								D = 0;
+								while (getchar() != '\n');
+								fflush(stdin);
+								printf("\nConsola: ");
+								gets_s(r[i].Consola);
+								r[i].NCC = strlen(r[i].Consola);
+								l = r[i].NCC;
+								for (l; l >= 0; l--)
+								{
+									if (islower(r[i].Consola[l]) != 0)
+									{
+										printf("\nEscriba todo en mayusculas...");
+										D = 1;
+										break;
+									}
+								}
+							} while (D == 1);
+							break;
+							//Año de lanzamiendo
+						case 4:
+							system("cls");
+							do
+							{
+								D = 0;
+								printf("\nAño de lanzamiento: ");
+								scanf("%d", &r[i].ALanzamiento);
+								if (r[i].ALanzamiento <= 0 || r[i].ALanzamiento < 1890)
+								{
+									printf("\nEl año ingresado no es valido...");
+									D = 1;
+									continue;
+								}
+							} while (D == 1);
+							break;
+							//cantidad
+						case 5:
+							system("cls");
+							do
+							{
+								printf("\nCantidad: ");
+								scanf("%d", &r[i].Cantidad);
+								if (r[i].Cantidad <= 0)
+								{
+									printf("\nLa cantidad ingresada no es valida...");
+									D = 1;
+									continue;
+								}
+							} while (D == 1);
+							break;
+							//Precio
+						case 6:
+							system("cls");
+							do
+							{
+								printf("\nPrecio: ");
+								scanf("%f", &r[i].Precio);
+								if (r[i].Precio <= 0)
+								{
+									printf("\nEl precio ingresado no es valido...");
+									D = 1;
+									continue;
+								}
+							} while (D == 1);
+							r[i].PrecioIVA = r[i].Precio * 1.30;
+							break;
+						case 7:
+							D == 1;
+							break;
+						default:
+							printf("\nEsa opcion no esta en el menú\n");
+							system("pause");
+							break;
+						}
+					}
+				}
+				break;
+
+				//Lista de productos
+			case 4:
+				system("cls");
+				char texto[50];
+				do
+				{
+				printf("--Lista de productos--\n");
+				//Esta parte valida que la decision sea solo entre las dadas
+				printf("\nRecuerde que si no escribe de manera correcta la consola/genero, no se desplegara ningun producto");
+				printf("\nFiltrar por \n1.-Consola\n2.-Genero\nSeleccione: ");
+				scanf("%d", &D);
+				if (D < 1 || D > 2) { printf("\n\nSolo tiene las opciones 1 y 2...\n"); system("pause");}
+				} while (D < 1 || D > 2);
+				if (D == 1)
+				{
+
+					printf("\nEscriba la consola: ");
+					while((getchar() != '\n'))
+					fflush(stdin);
+					gets_s(texto);
+					for ( i = 0; i <= 49; i++)
+					{
+						if (strcmp(texto, r[i].Consola) == 0 && r[i].Activo == 1)
+						{
+							printf("\n\nClave: %d", r[i].Clave);
+							printf("\nNombre: %s", r[i].Nombre);
+							printf("\nDescripcion: %s", r[i].Descripcion);
+							printf("\nGenero: %s", r[i].Genero);
+							printf("\nConsola: %s", r[i].Consola);
+							printf("\nAño de lanzamiento: %d", r[i].ALanzamiento);
+							printf("\nCantidad: %d", r[i].Cantidad);
+							printf("\nPrecio: %.2f", r[i].Precio);
+							printf("\nPrecio con IVA: %.2f", r[i].PrecioIVA);
+						}
+					}
+				}
+				else if (D == 2)
+				{
+					printf("\nEscriba el Genero: ");
+					while ((getchar() != '\n'))
+					fflush(stdin);
+					gets_s(texto);
+					for (i = 0; i <= 49; i++)
+					{
+						if (strcmp(texto, r[i].Genero) == 0 && r[i].Activo == 1)
+						{
+							printf("\n\nClave: %d", r[i].Clave);
+							printf("\nNombre: %s", r[i].Nombre);
+							printf("\nDescripcion: %s", r[i].Descripcion);
+							printf("\nGenero: %s", r[i].Genero);
+							printf("\nConsola: %s", r[i].Consola);
+							printf("\nAño de lanzamiento: %d", r[i].ALanzamiento);
+							printf("\nCantidad: %d", r[i].Cantidad);
+							printf("\nPrecio: %.2f", r[i].Precio);
+							printf("\nPrecio con IVA: %.2f", r[i].PrecioIVA);
+						}
+					}
+				}
+				break;
+			
+			case 5:
+				guardar();
+				return 1;
+				break;
+			default:
+				printf("\nEsa opcion no esta en el menu\n");
+				system("pause");
+				D = 1;
+				break;
+		}
+		printf("\n\nDesea volver al menú\n1.-SI\nPresione otra tecla para salir...\nSeleccione: ");
+		scanf("%d",&D);
+		if (D > 1 || D < 1)
+		{
+			printf("\nSaliendo del programa...\n");
+			guardar();
+			system("pause");
+		}
+	} while (D == 1);
+}
